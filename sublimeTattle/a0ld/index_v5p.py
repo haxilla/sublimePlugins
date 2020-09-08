@@ -16,7 +16,6 @@ selfClicks=0
 keyCount=0
 idle=1
 
-
 mydb = mysql.connector.connection.MySQLConnection(
 	host="localhost",
 	user="root",
