@@ -6,9 +6,6 @@ def plugin_loaded():
 
 # sublime
 import sublime, sublime_plugin
-# mysql
-import mysql.connector
-
 # my
 from .my.classes import setInterval
 # variables
@@ -16,20 +13,6 @@ selfClicks=0
 keyCount=0
 idle=1
 
-
-mydb = mysql.connector.connection.MySQLConnection(
-	host="localhost",
-	user="root",
-	password="l34gu31290",
-	database="remuserdb"
-)
-
-mycursor=mydb.cursor()
-mycursor.execute("SELECT * FROM allorders LIMIT 1")
-myresult = mycursor.fetchall()
-
-for x in myresult:
-  print(x)
 # runs a nonstop tally on keypresses
 # uses a global variable to store changes
 class keyPresses(sublime_plugin.EventListener): 
@@ -73,13 +56,17 @@ def action():
 
 
 	#reset value to 0
+	
+	""" CHECKING VALUES
+	if idleNow==4:
+		print("idle for 1m")
+	if idleNow==8:
+		print("idle for 2m")
+	"""
+	#keyCount=0
+	#print("thisKeyCount",keyCountNow,idleNow)
 
-	# cancel the action if
-	# idleCount exceeds threshhold
-	
-	
-######################################
-## HOW OFTEN?						##
+## HOW OFTEN?
 ## 1m  60 	##	2m 120	## 	4m 240 	##
 ## 10m 600  ## 15m 900	## 30m 1800	##
 
