@@ -62,7 +62,49 @@ TESTS
 
 Make a new repo for sublimeFiles | Package in Sublime
 
+ALTERNATIVE NAMES
+-----------------
 
+fileCraft,fileFanatic,fileTastic,fileDroid,
+
+ALGORITHM CONSIDERATIONS
+------------------------
+
+To start local versioning, save a copy of a file into the a0ld directory named 
+
+## python how to get current extension from filename
+-- print(os.path.splitext("/path/to/some/file.txt")[0])
+
+currentFile.'_v1n_'.current extension
+anchorTrack=os.path.splitext(currentFile)
+
+
+
+
+currentFile.'_v1n_'.$extension
+
+check for existence of 
+and after so much time auto resave it with current fileState depending on keystrokes logged on that 
+particular file
+
+	* Auto shutoff
+		after X time frame
+		the file is saved in stalled status
+
+	* Can be woken up after keyStrokes to the file
+
+	* Needs to have setting to complete disable if desired
+
+
+IMPORTANT FEATURE
+-----------------
+need a way to remark if file is good
+example of something harder to remember
+needs like a sticky attribute
+
+
+STATUSES
+--------
 
 
 

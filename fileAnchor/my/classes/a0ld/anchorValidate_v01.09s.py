@@ -1,4 +1,3 @@
-#<! 27 !>#
 # regex
 import re, mysql.connector
 import localMySQL
@@ -44,13 +43,12 @@ class AnchorValidate:
 				#print(dir(localMySQL.localConnection\
 				#.LocalConnection().theLogin))
 
-				# db required
 				db='gitDev'
 				dataCon=localMySQL.localConnection.LocalConnection(db=db).theLogin()
 				newCon=dataCon[0]
 				newCursor=dataCon[1]
-				# save to database
-				# statement
+
+				#statement
 				sql="INSERT INTO \
 				fileAnchorPaths(fullPath,created_at)\
 				VALUES(%s,%s)"
@@ -60,21 +58,19 @@ class AnchorValidate:
 				newCursor.execute(sql, val)
 				#commit
 				newCon.commit()
-
-
 				#last inserted ID
 				thisNewID=newCursor.lastrowid
-				fileTag='#<! {thisNewID} !>#'.format(thisNewID=thisNewID)
+				thisNewID_str=str(thisNewID)
+				fileTag='#<!'+thisNewID+'!>#'
 				#add tag to top of file
 				self.line_prepender(currentFile,fileTag)
-				
 
 	def line_prepender(self,currentFile,line):
 	    with open(currentFile, 'r+') as f:
 	        content = f.read()
 	        f.seek(0, 0)
 	        f.write(line.rstrip('\r\n') + '\n' + content)
-	        #self.newAnchorMySQL(currentFile)
+	        self.newAnchorMySQL(currentFile)
 
 	def newAnchorMySQL(self,currentFile):
 		print("newAnchorMySQL")

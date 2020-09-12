@@ -1,8 +1,7 @@
-#<! 12345 !>#
-
 # sublime
 import sublime,os
 from .my.classes import anchorValidate
+from pathlib import Path
 
 # wait until load then enter
 def plugin_loaded():

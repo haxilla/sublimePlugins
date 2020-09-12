@@ -1,0 +1,12 @@
+## TypeError: Can't convert 'int' object to str implicitly
+-- use , to pass different strings to your print function, rather than concatenating using +: -
+** resolved
+
+## AttributeError: 'tuple' object has no attribute 'rstrip'
+-- when trying to concatenate the value fileTag='#<! ',thisNewID,' !>#' 
+-- do this instead,
+-- fileTag='#<! {thisNewID} !>#'.format(thisNewID=thisNewID)
+** resolved
+
+
+	

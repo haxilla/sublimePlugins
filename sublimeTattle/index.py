@@ -1,3 +1,4 @@
+#<! 12345 !>#
 
 #waits for loaded response
 def plugin_loaded():
@@ -10,7 +11,6 @@ import sublime, sublime_plugin
 import mysql.connector
 # datetime
 from datetime import datetime
-now=datetime.now()
 # my
 from .my.classes import setInterval, localMySQL
 # variables
@@ -49,7 +49,7 @@ class keyPresses(sublime_plugin.EventListener):
 
 #timed function that checks in 
 #on the keypresses at preset intervals
-def action(startUp="0"):
+def action(startUp="0",theInterval=900):
 
 	global idle
 	global keyCount
@@ -75,10 +75,12 @@ def action(startUp="0"):
 
 	#statement
 	sql="INSERT INTO \
-	sublimeTattler(keyCount,totalCount,idleCount,startUp,created_at)\
-	VALUES(%s,%s,%s,%s,%s)"
+	sublimeTattler(keyCount,totalCount,\
+	idleCount,startUp,theInterval,created_at)\
+	VALUES(%s,%s,%s,%s,%s,%s)"
 	#values
-	val=(keyCountNow,totalCount,idleNow,startUp,now)
+	val=(keyCountNow,totalCount,idleNow,\
+	startUp,theInterval,datetime.now())
 	#execute
 	newCursor.execute(sql, val)
 	#commit
