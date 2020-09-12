@@ -3,7 +3,7 @@
 def plugin_loaded():
 	#opens console on load
 	sublime.active_window().run_command("show_panel", {"panel": "console"})
-
+	print("console opened by sublimeTattle")
 # sublime
 import sublime, sublime_plugin
 # mysql

@@ -1,6 +1,23 @@
+# sublime
 import sublime,sublime_plugin,os
-# takes a qualifier argument
-# to pass to run function
+#from .my.classes.globals import windowCommands
+# qualifying filename
+# matchAnchors uses value & returns
+# list of enabled,disabled sites
+thisAnchor='/fileAnchor.json'
+
+def plugin_loaded():
+	# siteList GLOBAL!
+	sublime.active_window().run_command\
+	("match_anchors",{"thisAnchor": thisAnchor})
+	# currentFile GLOBAL!
+	sublime.active_window().run_command("this_file")
+	# open panel
+	sublime.active_window().run_command\
+	("show_panel", {"panel": "console"})
+	# display for debug
+	print(siteList_g,currentFile_g)
+
 class MatchAnchors(sublime_plugin.WindowCommand):
 
 	def __init__(self,window):
@@ -43,21 +60,28 @@ class MatchAnchors(sublime_plugin.WindowCommand):
 				disabledSites['checkPath']=checkPath
 				disabledSites['enabled']=False
 
+		global siteList_g
 		# set reply
-		siteList={
+		siteList_g={
 			"enabledSites":enabledSites,
 			"disabledSites":disabledSites}
 
 		#reply
 		#print(reply)
 		#print(siteList)
-		return siteList
-		
+		return siteList_g
 
-# qualifying filename
-# matchAnchors uses value & returns
-# list of enabled,disabled sites
-thisAnchor='/fileAnchor.json'
+class ThisFile(sublime_plugin.WindowCommand):
 
-sublime.active_window().run_command\
-("match_anchors",{"thisAnchor": thisAnchor})
+	def run(self):
+		#set
+		#print(dir(self.window.active_view()))
+		global currentFile_g
+		currentFile_g=self.window.active_view().file_name()
+		return currentFile_g
+
+"""
+xxx
+crib notes
+xxx
+"""
