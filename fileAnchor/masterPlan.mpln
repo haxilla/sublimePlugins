@@ -1,0 +1,134 @@
+LINUX:
+	COMMENT: For linux specific milestones and tasks
+	IDEA: Implement a random wallpaper at certain intervals, or even
+	changing base on day / night.
+	ISSUE: Keep forgetting how to resource the bash file
+		COMMENT:
+		RESOLVED:1
+
+GENERAL:
+
+	Q: Does sublime text have an event for tab switched? 
+
+	COMMENT: A General category will help to notate 
+	things that dont belong to part of versioning 
+	or milestones
+
+	STALLED_NOTE: Contemplation of the iteration of 
+	the line by line read of a file to determine the ID# 
+	and which tag belongs to which.  Also, I'm really wanting to 
+	see this data in graphical, interactive vew, but also
+	need to keep writing to identify patterns that need to be
+	accounted for.  Also, rather than just creating tables manually in mySQL, I want to use the exercise to create a programmatic way
+	for the future. Specifically, its the contemplation of manipulation	during iteration.
+
+	PONDERING: 
+		THOUGHT: Best way to parse through a text document
+		for insertion into mySQL
+		THOUGHT: Need easy way to create mySQL tables from
+		within sublime text
+		THOUGHT: Need Notation for anchor brackets when 
+		its an enhancement vs a new feature
+
+	IDEA: Ideas,Issues,etc. need a clickable way to be used as 
+	launch point for a new version template if warranted
+
+	ISSUE: Need to correct the starting point in the v.012
+	to basically register fileAnchor itself as a plugin
+		NOTE: This would be a good way to expore how
+		to retrieve a version number from a file stored in
+		the a0ld folder.
+
+	Q: Do comments need to be setup to show by default? Or should they be set up more like hidden with a notice indicator badge?
+		COMMENT: Too soon to tell, you dont even have a single
+		visual idea of how this thing looks, slow down about this
+		idea for now
+
+	Q: Does python consider 0 and None to be equal?
+	A: No
+
+	IDEA: Create a separate plugin for archiving.  The logic is
+	usually identical for naming and folder structure, so creating it
+	once should make it easier for all future sites to archive files.
+	Use this idea to launch a new VERSION that contains the <! New Feature !>.
+
+	Q: Is there a way to give keyboard shortcuts but only specifically when
+	a certain mode or plugin feature is toggled?
+		COMMENT: If this is not possible, it would be a good idea to figure
+		out the best keyboard shortcuts to use for the different tags.
+		Having to type the full tag everytime is not idea.
+
+	Q: Is there a way to have a permanent clickable menu bar in sublime that would
+	give access to commands specific to a plugin?  Something icon driven that can lock
+	down somewhere out of the way when turning on the masterPlanner.
+		COMMENT: Consider making it so that it loads based on file extension.  This
+		may be possible by binding to the file new option, and scanning for the condition
+		of "if masterplan is enabled, and file extension is .mpln"
+
+VERSION: v.012
+
+	RELEASE_NOTES: New Feature <! fileAnchor !> File Anchor keeps track of your 
+	files in various way to make troubleshooting and tracking the progress of 
+	all new files.   
+
+	NOTE: This should be manually added to the pluginManager at first
+	since its already in place and the following section will serve
+	as enhancements.
+
+	NOTE: Logic needs to be implemented where it scans for the new feature tag
+		If one is found, an update behavior is implemented rather than an insert.
+		If updating, the entry should be listed as enhance, issue, etc.
+
+	MILESTONE: 
+		LEARN: How to get a clean right click menu with customized options
+		
+	ISSUE:Need a way to isolate entirety of site from its counterparts
+		NOTE: When saving files, check the a0ld folder for a file for most recent modified date
+		STALL:1
+		RESOLVED:1
+
+	Q: Is it necessary to store the saved masterPlan file that was already imported into mysql for any reason?
+		Comment: As a just in case, you could archive them.
+
+	MILESTONE: Add an archiving system to store the old imported files.
+		COMMENT: The process should start by cloning the current file
+		as a new name into the archive folder, then deleting the file that is read
+		when complete.
+		TASK: Setup folder structure for an archive system where a cron job
+		could easily delete the oldest folders from a cron job
+
+	ISSUE: For the stalled, resolved situation, keep count somewhere, somehow
+
+	ISSUE: Must have a way to properly escape colons in order to figure out a
+	a non-breaking working regex.
+		COMMENT: This seems to happen most frequently when the tag is mimicked in an example to reference the metatags and illustrate the point.
+
+	MILESTONE: Right click menu from sublime to offer new menu options
+
+		ISSUE: Can the default right click menu be wiped clean for full customization?
+
+		TASK: Create rule to be sure only if current directory is enabled
+
+		TASK: Bug Report should accept highlighted text and add to errorLog
+			COMMENT: mplnerror.log for file
+
+		TASK: Add Versioner Menu Option
+			IDEA: When clicked, versioner scans the a0ld folder within its
+			own directory for a file named `$currentFile.'_v1n_'.$currentExtension`
+			if its not there, it add it.  If so, determine the current state
+
+		TASK: Add MasterPlanner Menu Option
+			IDEA: clicking will initiate an upload to mysql and render
+			a the text into an interactive format
+
+		TASK: Add mySQLuv Feature
+			IDEA: Right click to create, edit tables inside sublime text
+			Q: Can full forms be created or are only simple text fields 
+			available one at a time?
+
+	MILESTONE: Make the keyTracker increment how many times the file was saved
+	and include it in the keystroke data reports
+
+		TASK: Need fields for lastSaveDate,totalSaveCount,currentSaveCount
+
+	Q: How to include a synapsis of which FILES belong to which milestones?

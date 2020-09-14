@@ -1,18 +1,15 @@
-#<! 12345 !>#
-
+#<! 33 !>#
 #waits for loaded response
 def plugin_loaded():
 	#opens console on load
 	sublime.active_window().run_command("show_panel", {"panel": "console"})
 	print("console opened by sublimeTattle")
 # sublime
-import sublime, sublime_plugin
-# mysql
-import mysql.connector
+import sublime,sublime_plugin,localMySQL
 # datetime
 from datetime import datetime
 # my
-from .my.classes import setInterval, localMySQL
+from .my.classes import setInterval,statusBar
 # variables
 totalCount=0
 keyCount=0
@@ -38,14 +35,32 @@ class keyPresses(sublime_plugin.EventListener):
 		keyCount=self.clicks
 		#doesnt reset unless sublime restarts
 		totalCount=self.clicks
+		statusBar.StatusBar(view,keyCount).keyCount_statusBar()
+
 		#print(keyCount,self.clicks)
+
+	def on_window_command(self,window,command,args):
+		if command=='drag_select':
+			print("THIS IS A DRAG_SELECT")
+		else:
+			print("WINDOW"+command)
+
+	def on_view_command(self,window,command,args):
+		print("VIEW"+command)
+
+	'''
+	def on_pre_click():
+		print("PRECLICK")
+
+	def on_post_click():
+		print("POSTCLICK")
+	'''
 
 	def get_keyCount():
 		return keyCount
 		
 	def get_idle():
 		return idle
-
 
 #timed function that checks in 
 #on the keypresses at preset intervals
@@ -65,14 +80,11 @@ def action(startUp="0",theInterval=900):
 	#should probably store mySQL values
 	#in mySQL table and request via a method
 
-	#requires host,user,pswd,db
-	getCon=localMySQL.localMySQL\
-	('localhost','root','l34gu31290','gitDev')
-	
-	thisCon		= getCon.newCon();
-	newCon		= thisCon['thisCon']
-	newCursor	= thisCon['thisCursor']
-
+	#requires db, rest is set on clas
+	db='gitDev'
+	dataCon=localMySQL.localConnection.LocalConnection(db=db).theLogin()
+	newCon=dataCon[0]
+	newCursor=dataCon[1]
 	#statement
 	sql="INSERT INTO \
 	sublimeTattler(keyCount,totalCount,\
@@ -121,4 +133,5 @@ myresult = mycursor.fetchall()
 #loop
 for x in myresult:
   print(x)
+ 
 """

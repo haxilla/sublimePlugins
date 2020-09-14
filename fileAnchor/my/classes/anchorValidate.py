@@ -1,20 +1,29 @@
-#<! 27 !>#
 # regex
-import re, mysql.connector
-import localMySQL
+import re, localMySQL
 from datetime import datetime
-#Anchor Validation / Storage
+
+# The purpose of this class
+# serves to check the file for a fileAnchor tag
+# creates one & inserts if needed
+# or retrieves the ID inside an existing tag
+# in either case the action at the end should be the same
+
 class AnchorValidate:
 
 	def __init__(self,currentFile):
 		self.currentFile=currentFile
 
 	def stampCheck(self):
+		#defaults
+		anchorInsert=0
+		anchorFound=0
+		prependResult="TagFound"
 		#set currentFile
 		currentFile=self.currentFile
+		#print(newCursorrrentFile)
 		if currentFile==None:
-			print(currentFile)
-			return "error-line15-anchorValidate.py"
+			#error if none
+			return "error-line25-anchorValidateline15-anchorValidate.py"
 
 		#read currentFile
 		with open(currentFile,'r') as thisFile:
@@ -31,18 +40,15 @@ class AnchorValidate:
 				tagScan=re.search('#<!(.*)!>#',content)
 				# set fileID
 				fileID=tagScan.group(1)
+				anchorFound=1
+				isString = isinstance(fileID, str)
+				if isString is True:
+					fileID=str.strip(fileID)
 				# error if none
 				if fileID==None:
-					return "error-line35-anchorValidate.php"
-
-				print(fileID)
-				return fileID
+					return "error-line45-anchorValidate.php"
 
 			else:
-
-				#debug
-				#print(dir(localMySQL.localConnection\
-				#.LocalConnection().theLogin))
 
 				# db required
 				db='gitDev'
@@ -53,7 +59,9 @@ class AnchorValidate:
 				# statement
 				sql="INSERT INTO \
 				fileAnchorPaths(fullPath,created_at)\
-				VALUES(%s,%s)"
+				VALUES(%s,%s)\
+				ON DUPLICATE KEY \
+				UPDATE saveCount = saveCount + 1;"
 				#values
 				val=(currentFile,datetime.now())
 				#execute
@@ -61,20 +69,32 @@ class AnchorValidate:
 				#commit
 				newCon.commit()
 
-
 				#last inserted ID
-				thisNewID=newCursor.lastrowid
-				fileTag='#<! {thisNewID} !>#'.format(thisNewID=thisNewID)
+				fileID=newCursor.lastrowid
+				anchorInsert=1
+				fileTag='#<! {fileID} !>#'.format(fileID=fileID)
+				if(fileID==None):
+					return "error-line72-anchorValidate"
+
 				#add tag to top of file
-				self.line_prepender(currentFile,fileTag)
-				
+				prependResult=self.line_prepender\
+				(currentFile,fileTag)
+
+		# returns if file prepend was used, fileID,and if
+		# the file had the tag or was recently inserted
+		isString = isinstance(fileID, str)
+		if isString is True:
+			fileID=str.strip(fileID)
+		return fileID,anchorInsert,anchorFound,prependResult			
 
 	def line_prepender(self,currentFile,line):
 	    with open(currentFile, 'r+') as f:
 	        content = f.read()
 	        f.seek(0, 0)
 	        f.write(line.rstrip('\r\n') + '\n' + content)
-	        #self.newAnchorMySQL(currentFile)
+
+	    return "Success! Tag Prepended to "+currentFile
+
 
 	def newAnchorMySQL(self,currentFile):
 		print("newAnchorMySQL")

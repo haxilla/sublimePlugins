@@ -1,0 +1,18 @@
+[
+    { "command": "open_context_url" },
+    { "command": "context_goto_definition", "caption": "Goto Definition" },
+    { "caption": "-", "id": "diff" },
+    { "command": "toggle_inline_diff" },
+    { "caption": "-", "id": "fileAnchor" },
+    { "command": "file_anchor_stats","caption":"FileAnchor"},
+    { "caption": "-", "id": "masterPlan"},
+    { "command": "master_plan_parse","caption":"MasterPlan"},
+    { "caption": "-", "id": "clipboard" },
+    { "command": "cut" },
+    { "command": "copy" },
+    { "command": "paste" },
+    { "caption": "-", "id": "selection" },
+    { "command": "open_dir", "args": {"dir": "$file_path", "file": "$file_name"}, "caption": "Open Containing Folder…" },
+    { "command": "copy_path", "caption": "Copy File Path" },
+    { "caption": "-", "id": "end" }
+]

@@ -1,14 +1,23 @@
 #<! 28 !>#
 # sublime
 import sublime,os
-from .my.classes import anchorValidate
-from pathlib import Path
+from .my.classes import anchorValidate,sublimeOutput
 
 # wait until load then enter
 def plugin_loaded():
+	
+	#qualifies, sets up tags if needed 
+	#and return fileID 
 	thisAnchor='/fileAnchor.json'
-	status=FileAnchor(thisAnchor).projectData()
-	print(status)
+	getID=FileAnchor(thisAnchor).projectData()
+	fileID=getID[0];
+	# the retrieval of a fileID here
+	# means it has found an enabled site
+	# and it has a record in fileAnchorPaths
+	output=sublimeOutput.SublimeOutput(fileID).showPanel()
+	print(output+", you should see a panel at the bottom")
+	# create the menu relating to 
+	# available options for this fileID	
 
 # startup
 class FileAnchor():
@@ -44,7 +53,7 @@ class FileAnchor():
 		disabledSites={}
 		# loop
 		if projectData==None:
-			return "error-line44-index.py"
+			return "error-line47-index.py"
 	
 		for x in projectData['folders']:
 			# path
@@ -84,6 +93,7 @@ class FileAnchor():
 		# for fileAnchor stamp on current file
 		disCount=0
 		enCount=0
+		validated=None
 		for x in siteList:
 			#count & dispatch if enabled
 			if x=='disabledSites':
@@ -92,7 +102,8 @@ class FileAnchor():
 				enCount+=1
 				#send for validation
 				#print(currentFile)
-				anchorValidate.AnchorValidate(currentFile).stampCheck()
+				validated=anchorValidate.AnchorValidate(currentFile).stampCheck()
 
-		#debug
-		#print(disCount,enCount,siteList,currentFile)
+		return validated
+
+		

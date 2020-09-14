@@ -121,6 +121,12 @@ to have milestoneID to generate
 Example.
 ________
 
+LINUX:
+
+	COMMENT: For linux specific milestones and tasks
+	IDEA: Implement a random wallpaper at certain intervals, or even
+	changing base on day / night.
+
 
 GENERAL:
 	
@@ -137,13 +143,6 @@ GENERAL:
 	I want to use the exercise to create a programmatic way
 	for the future.
 
-	DO_THIS: 
-		TASK: Manually make the tables needed for the 
-		mySQLuv plugin
-			
-
-	Q: How can I insert a task that is wrapped inside a metatag?
-	
 	PONDERING: 
 		OPTION: Best way to parse through a text document
 		for insertion into mySQL
@@ -163,11 +162,38 @@ GENERAL:
 		the a0ld folder.
 
 	Q: Do comments need to be setup to show by default? Or should they 
-	be set up more like hidden with a notice indicator badge?
+	be set up more like hidden with a notice indicator badge?b
 		COMMENT: Too soon to tell, you dont even have a single
 		visual idea of how this thing looks, slow down about this
 		idea for now
 
+	IDEA: Create a separate plugin for archiving.  The logic is
+	usually identical for naming and folder structure, so creating it
+	once should make it easier for all future sites to archive files.
+	Use this idea to launch a new VERSION that contains the <! New Feature !>.
+
+	Q: Is there a way to give keyboard shortcuts but only specifically
+	when a certain mode is toggled? COMMENT: If this is not possible, it
+	would be a good idea to figure out the best keyboard shortcuts to use
+	for the different tags. Having to type the full tag everytime is not
+	idea.
+
+	Q: Is there a way to have a permanent clickable menu bar in sublime
+	that would give access to commands specific to a plugin?  Something
+	icon driven that can lock down somewhere out of the way when turning
+	on the masterPlanner. COMMENT: Consider making it so that it loads
+	based on file extension.  This may be possible by binding to the file
+	new option, and scanning for the condition of "if masterplan is
+	enabled, and file extension is .mpln"
+
+	Q: How to handle the fact that there are multiple pre created releases.
+		COMMENT: The lowest version would be the default, have options to see future releases
+		if desired.  Have option to show all tasks regardless of Version, and in that case
+		when a task is marked done in that mode, it can be added to the current version notes,
+		and possibly removed from whatever future version it was in.
+			ISSUE: If removing completing a task from another version will
+			trigger the release of that version, throw error 
+				STALL:1
 
 VERSION: v.012
 
@@ -193,12 +219,17 @@ VERSION: v.012
 	imported into mysql for any reason?
 		Comment: As a just in case, you could archive them.
 
-	ISSUE: For the stalled, resolved situation, keep count somewhere, somehow
+	MILESTONE: Add an archiving system to store the old imported files.
+		COMMENT: The process should start by cloning the current file
+		as a new name into the archive folder, then deleting the file that is read
+		when complete.
+		TASK: Setup folder structure for an archive system where a cron job
+		could easily delete the oldest folders from a cron job
 
-	ISSUE: Must have a way to properly escape colons in order to figure out a
-	working regex.
-		COMMENT: This seems to happen most frequently when the tag is mimicked
-		in an example to reference the metatags and illustrate the point.
+	ENH: For the stalled, resolved situation, keep count somewhere, somehow
+
+	ISSUE: Must have a way to properly escape colons in order to figure out a non-breaking working regex.
+		COMMENT: This seems to happen most frequently when the tag is mimicked in an example to reference the metatags and illustrate the point.
 
 	MILESTONE: Right click menu from sublime to offer new menu options
 
@@ -215,31 +246,25 @@ VERSION: v.012
 			if its not there, it add it.  If so, determine the current state
 
 		TASK: Add MasterPlanner Menu Option
-			IDEA: clicking will initiate an upload to mysql and render
-			a the text into an interactive format
+			IDEA: clicking will initiate an upload to mysql and render a the text into an interactive format
 
 		TASK: Add mySQLuv Feature
 			IDEA: Right click to create, edit tables inside sublime text
 			Q: Can full forms be created or are only simple text fields 
 			available one at a time?
 
-	MILESTONE: Make the keyTracker increment how many times the file was saved
-	and include it in the keystroke data reports
+	MILESTONE: Make the keyTracker increment how many times the file was saved and include it in the keystroke data reports
 
 		TASK: Need fields for lastSaveDate,totalSaveCount,currentSaveCount
 
-	ISSUE: How to include a synapsis of which FILES belong to which milestones?
+	Q: How to include a synapsis of which FILES belong to which milestones?
 
 
 VERSION: v.013
 
-	RELEASE NOTES: Detect if current file is being versioned in a0ld folder
-	If so, determine what state its at by scanning for various possiblities. 
-	Depending on the state, the program will react with an appropriate response.
-	
-	COMMENT: Local versioning sytem that handles files locally.  
-	Stores copies of the main file in various states to avoid useless commits
-	for every minor detail.
+	RELEASE NOTES: New Feature <! versionMaster !> Local versioning sytem that handles files locally. Stores copies of any file you are working on in various states to avoid useless commits for every minor detail. 
+
+	NOTE: Detect if current file is being versioned in a0ld folder.  If so, determine what state its in by scanning file name patterns. Depending on the state, the program will react with an appropriate response.
 
 	IDEA: log the URLS's visited in firefox or chrome
 		Q: Can a script be written to extract text in the browser address bar?
@@ -252,8 +277,7 @@ VERSION: v.013
 
 		COMMENT: function should be triggered from the keyTracker as 
 		soon as the specified number is hit.  The files saved named
-		should have an indicator as to whether it was saved by keytracker 
-		or autotracker.
+		should have an indicator as to whether it was saved by keytracker or autotracker.
 
 	MILESTONE: When file has had no keystrokes for a certain period,
 	an auto version is saved as stalled, if one isnt already there,  
@@ -262,29 +286,62 @@ VERSION: v.013
 
 VERSION: v.014
 
-	RELEASE_NOTES: New Feature <! Master Planner !> Parse text in readme.fanch to be prepped for addition to mysql database.
-	Once inserted into the database a view can be created to show the text file as interactive tickets.
-	Certain tickets will be recognized as release tickets.  When release tickets are marked as done,
-	logic is set in motion to increment version locally as well as github.
+	RELEASE_NOTES: New Feature <! Master Planner !> Create outlines in your	masterPlan.mpln file and watch the magic as its transformed into an	interactive journal and ticketing command center.  Use Versions, milestones,	issues, ideas, comments, etc. to create a clear path to the finish line of	your project.  Data is parsed and added to mysql database. The basic
+	structure is that all Versions contain Milestones, and each milestone has tasks. When all the tasks in a milestone are complete, the event triggers an increment. When all milestones are complete in version, the release itself is completed and followed through all the way to github.
+
+	IDEA: When tasks from future releases
+	are completed, a notation should retain
+	the original intended version.  As it stands,
+	the tasks that are generated will most like be done 
+	in a piecemeal fashion, so any task completed 
+	must generate an entry in current version notes, as well as the intended version.  Possibly require a reason that may offer clarity on why work is occuring out of sequence.
+
+	IDEA: Implement a drag and drop way to sort the different
+	tags
+
+	IDEA: Should have a way to outright convert an idea
+	into a milestone.
+
+	IDEA: Main page would prominently display milestones with outstanding tasks.
+	NOTE: Unsure of how to deal with picking random tasks from different milestones?
+		COMMENT: I cant think of a situation where it would matter if tasks are completed
+		in random order since nothing happens to the version unless ALL tasks and milestones 
+		are complete in a version
 	
-	IDEA: The way to handle the Q: tag should be to show them somewhere conspicuous
-	maybe even something like a rolling feed.  When you find the answer to an outstanding
-	question, mark as such and keep daily track on things like questions answered, 
+	IDEA: The way to handle the Q: tag should be to show them somewhere conspicuous	maybe even something like a rolling feed.  When you find the answer to an outstanding question, mark as such and keep daily track on things like questions answered, 
 	issues resolved, etc.
 
-	IDEA: When masterPlanner reads the data it can suggest the first 
-	LEARN: tag or Q: tag it encounters to offer you a beneficial distraction
-	of things that need figurin' out.  Warning, may trigger episodes of manic overachievement, 
-	followed by long periods of extreme lethargy and burnout.
+	IDEA: There should be a generic boiler plate skeleton text file generated for all plugins, so adding new info such as enhancements, can be done textually and imported in separate process
 
-	NOTE: The initial import will serve to set up new entries for the plugins and the versions
-	at the time of the call, but afterwards, enhancements,bugfixes,etc will need to trigger incrementing
-	the version
+	IDEA: Create a way to map actions take during events on a given plugin
+		COMMENT: As an example, Keep track of things like... 
+		EXAMPLE:
+			PLUGIN:
+				EVENT: initial mpln file being read
+				EVENT: first line read
+					ACTION: Count preceding tabs 
+					(arbitrarily picked tab, could count spaces instead)
+				EVENT: next line
+					ACTION: Count preceding tabs and compare to previous line in a variable called tabDiff
+					POSSIBLE: thisLine = lastLine
+					POSSIBLE: thisLine > lastLine
+					POSSIBLE: thisLINE < lastLine
+					ERRORIF: !thisLine || !lastLine || !tabDiff
+				EVENT: last line
+					ACTION: Send success message
+		COMMENT: This looks like the basis for the algoHuxley plugin
+
+	NOTE: Example is a tag space you can enter where the colons inside are treated as plain text and not parsed.
+
+	IDEA: When masterPlanner reads the data it can suggest the first 
+	LEARN: tag or Q: tag it encounters to offer you a beneficial distraction of things that need figurin' out.  Warning, may trigger episodes of manic overachievement, followed by long periods of extreme lethargy and burnout.
+
+	NOTE: The initial import will serve to set up new entries for the plugins and the versions at the time of the call, but afterwards, enhancements,bugfixes,etc will need to trigger incrementing the version
 		STALL:1
 
-	MILESTONE: Create a master pluginData mysql table that includes every occurrence of 
-	<! New Feature Name !>  Check against the pluginData table to see if a row 
+	MILESTONE: Create a master pluginData mysql table that includes every occurrence of <! New Feature Name !>  Check against the pluginData table to see if a row 
 	exists for the name.  If it does, enter the current version of that plugin.
+		COMMENT: This sounds like a new plugin, not a milestone.
 
 		TASK: Make a table for pluginData and include all necessary fields
 
@@ -321,36 +378,50 @@ VERSION: v.014
 		Q: Is there any way to detect this automatically?
 
 	IDEA: Start by taking a simple file and converting to JSON
-		Q:Does anything already exist to conver plain text to JSON?
+		Q:Does anything already exist to convert plain text to JSON?
 
-	IDEA: Text between two sets of --- above and below should be stored in database as
-	examples and as text not varchar(255)
-		COMMENT: Best way would be to store the --- content in a new file, and 
-		save in db to be associated with the milestone/version its in.
+	IDEA: Text between two sets of --- above and below should be stored in database as examples and as text not varchar(255)
+		COMMENT: Best way would be to store the --- content in a new file, and save in db to be associated with the milestone/version its in.
 
 	Q: Is there a way to link a milestone that is created from an idea?
 
-	NOTE: The logic of this may work by reading each new line and counting tabs.
-	If the next lines tab count is higher than the current one, then you have stepped
-	down into a tag the current tag "owns". Conversely, if the tab count decreases,
+	NOTE: The logic of this may work by reading each new line and counting tabs. If the next lines tab count is higher than the current one, then you have stepped down into a tag the current tag "owns". Conversely, if the tab count decreases,
 	you are now on a new tag that does NOT belong to the current one.
-		COMMENT: Much of this is solved by doing the JSON conversion, 
-		as after its converted there are plenty of ways to traverse the content.
-		Dont reinvent the wheel.
+		COMMENT: Much of this is solved by doing the JSON conversion, as after its converted there are plenty of ways to traverse the content. Dont reinvent the wheel.
+			COMMENT: After reviewing more, the best way seems to be to take my own markup and convert it into a python function to manipulate data into JSON.
+
+	MILESTONE: During the read of file, line by line, if a suspected 
+	metatag is encountered,check to see if the tag has a table in the masterPlan database. If not, send a prompt and ask if you would like to create a new metatag with that name.  If response is yes, add new table and appropriate fields for that tag programmatically.
+
+	Q: How to link a tag to another one after the fact?
 
 	IDEA: Color code each topic
 	IDEA: Create a syntax specific to masterPlan files
 	IDEA: .mpln file extension
 	IDEA: Easiest pattern for writing is a simple rule that all words preceding a color are the metatags
 	IDEA: Have a separate category for Questions
-	ISSUE: How to escape the colon when necessary to avoid choosing wrong metatag
-		Q: Is there a way count capitals, would that be reliable?
-			LEARN: Count number of capitals in a string regex
+	Q: How to escape the colon when necessary to avoid choosing wrong metatag?
+		A: Simplest solution would be to add more to metatags
+		to make them less likely to match.
+		EXAMPLE: Instead of making a metatag simply METATAG:,
+		it could be sandwiched between another symbol like
+		$METATAG:, or double colons like METATAG::
+			COMMENT: Or what about _METATAG_?
+				COMMENT: If it wont be easy to drop these tags
+				in some keyboard shortcut it shouldnt be hard to type
+				or easy to typo/forget
+	Q: Is there a way count capitals, would that be reliable?
+		LEARN: Count number of capitals in a string regex
+
+	Q: Will creating a belongs to variable for each tag help to 
+	identify the structure level?  Is it necessary?
+
+	Q: After the insertion of new data, there is a newID generated.
+	How would the child tags know the ID of a newly created parent tag?
+
 	all blocks of text followed by a colon belong to that tag
 		ISSUE: How to know when a block is done and a new metatag begins?
-			COMMENT: All metatags wil begin on new line, but may or may not have tabs, or spaces in front.
-			If you can count preceding tabs or spaces on every new line, you could also determine
-			the level of the nest and do something with that info.
+			COMMENT: All metatags wil begin on new line, but may or may not have tabs, or spaces in front. If you can count preceding tabs or spaces on every new line, you could also determine the level of the nest and do something with that info.
 		ISSUE: How to detect if word on first line has a tag at all.  Would I need to regex
 		a certain number of capitals?
 			COMMENT: Anything between a RETURN and colon is the metatag, from there you will
@@ -388,16 +459,18 @@ VERSION: v.014
 		IDEA: Possibly creating the table in isolation would allow for
 		a fast reliable delete & recreate
 			ISSUE: Designing that type of database would contain too many tables
+			STALL:1
 	
 	Q: Spotting a pattern in this outline of too many comments 
 	within comments.  Seemingly could go on endlessly.  May need to rule out
 	comments belonging to comments?
 		A: If there is one table for each possible metatag the relationships
 		can help keep it all in order.  IE questions,answers,comments,task,idea,issue,etc
+		STALL:1
 
 	Q: Whats the best way to retrieve updated info about the file itelf
-		A: Thought process was that maybe than needing to make frequent mysql calls
-		to update the file and parse for it, but it sounds unnecessary
+	Q: Is it even necessary to have a textual represention of the database inside the site?
+		COMMENT: Probably not
 
 VERSION: 1.015
 	
@@ -407,6 +480,15 @@ VERSION: 1.015
 
 	IDEAS: Consider building errorBuddy sooner so you can use it during 
 	the development of itself
+
+	IDEAS: Rather than having to copy & highlight anything at all, it would
+	be easy to send the error out immediately.  
+		COMMENT: This is a mode that should be toggleable and not default.
+		since it would involve automating actions of looking up answers online.
+
+	IDEAS: Errors should be sent to their own database for logging and tracking 
+	for resolutions.  Errors would be linkable to fileAnchors.  A popup window 
+	can bring the message to the forefront rather than requiring the console.
 
 VERSION: 1.016
 
@@ -419,6 +501,13 @@ VERSION: 1.017
 	conditions and what behaviors they would trigger to better help you 
 	map out paths of logic before you start.  When you have complex conditions, it can 
 	be exhausting repetitively retesting / refreshing.  So plan ahead and make your life easy
+
+		COMMENTS: In my earliest days of programming I took an irrational pride in 
+		flying by the seat of my pants.  I didnt want to waste time planning, I wanted to get 
+		straight to doing.  This lack of planning ended up causing me to hit dead ends
+		that I didnt foresee.  Algo will expose the flaws in your faulty human logic so you
+		dont end up programming your way into a dead end.
+
 		COMMENTS: I think this would be easier where the map is visually represented.
 		Q: 
 		the text version is too hard to comprehend and is redundant
